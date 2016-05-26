@@ -9,7 +9,7 @@ const onDropBook = function (event) {
   $('#result-table').hide();
   $('#output-text').hide();
 
-  let this_id = $(this).attr('id');
+  let this_id = $('event.target').attr('id');
   console.log(this_id);
   libraryApi.destroy(this_id);
   console.log(this_id + ' was destroyed!');
@@ -51,7 +51,7 @@ const writeTable = function(data){
       $('#result-table').append(newHTML);
 
       // Attach event handler
-      $("#" + i).on('click', onDropBook);
+      $("#" + book_id).on('click', onDropBook);
 
       if(data.books){
         $('#book-id-number-' + String(i)).text(JSON.stringify(books_array[i].id));
