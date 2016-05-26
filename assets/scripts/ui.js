@@ -16,13 +16,17 @@ const writeTable = function(data){
   }
 
   for(let i = 0; i < max; i++){
-    let newHTML = '\
-    <tr>\
-      <td id="book-id-number-' + String(i) + '"></td>\
-      <td id="book-title-' + String(i) + '"></td>\
-      <td id="book-author-' + String(i) + '"></td>\
-    </tr>\
-      ';
+
+    let newHTML = [
+    '<tr>',
+      '<td id="book-id-number-' + String(i) + '"></td>',
+      '<td id="book-title-' + String(i) + '"></td>',
+      '<td id="book-author-' + String(i) + '"></td>',
+      '<td id="book-author-' + String(i) + '">',
+        '<button id="delete-' + String(i) + '" class="delete-button">Delete</button>',
+      '</td>',
+    '</tr>',
+    ].join('');
 
       $('#result-table').append(newHTML);
 

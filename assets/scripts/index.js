@@ -16,15 +16,16 @@ const onGetBooks = function (event) {
 
   event.preventDefault();
 
-  let basicHTMLTable = '\
-  <table id=result-table class="table table-bordered">\
-    <tr>\
-      <th>ID</th>\
-      <th>Title</th>\
-      <th>Author</th>\
-    </tr>\
-  </table>\
-  ';
+  let basicHTMLTable = [
+    '<table id=result-table class="table table-bordered">',
+      '<tr>',
+        '<th>ID</th>',
+        '<th>Title</th>',
+        '<th>Author</th>',
+        '<th>Management</th>',
+      '</tr>',
+    '</table>',
+  ].join('');
 
   $('#result-table').html(basicHTMLTable);
 
