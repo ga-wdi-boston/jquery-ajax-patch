@@ -18,10 +18,10 @@ const tableReset = function(){
 };
 
 const fieldReset = function(){
-  $("book-request").val('');
-  $("book-create").val('');
-  $("book-delete").val('');
-  $("book-update").val('');
+  // $("#book-request").val('');
+  // $("#book-create").val('');
+  // $("#book-delete").val('');
+  // $("#book-update").val('');
   return true;
 };
 
@@ -119,13 +119,13 @@ const onError = function (response) {
   console.error(response);
 };
 
-const onDelete = function (data) {
-  writeTable(data);
+const onDelete = function () {
+  //writeTable(data);
   console.log('Book was successfully deleted.');
 };
 
-const onPatch = function (data) {
-  writeTable(data);
+const onPatch = function () {
+  //writeTable(data);
   console.log('Book was successfully updated.');
 };
 
