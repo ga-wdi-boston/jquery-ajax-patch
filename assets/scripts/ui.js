@@ -4,8 +4,10 @@ const writeTable = function(data){
 
   let books_array;
   let max;
+  let dataCheck;
+  dataCheck = data.books;
 
-  if(data.books){
+  if(dataCheck !== undefined){
     books_array = data.books;
     max = books_array.length;
   }else{
