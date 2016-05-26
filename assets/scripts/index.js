@@ -13,7 +13,8 @@ $('#output-text').hide();
 // beginning with 'on' to denote that it is done when the GET /books
 // button is clicked
 const onGetBooks = function (event) {
-  event.preventDefault
+
+  event.preventDefault();
 
   let basicHTMLTable = '\
   <table id=result-table class="table table-bordered">\

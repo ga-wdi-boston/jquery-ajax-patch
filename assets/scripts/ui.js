@@ -3,13 +3,17 @@
 const writeTable = function(data){
 
   let books_array;
+  let max;
+
   if(data.books){
     books_array = data.books;
+    max = books_array.length;
   }else{
     books_array = data.book;
+    max = 1;
   }
 
-  for(let i = 0, max=books_array.length; i < max; i++){
+  for(let i = 0; i < max; i++){
     let newHTML = '\
     <tr>\
       <td id="book-id-number-' + String(i) + '"></td>\
@@ -49,7 +53,7 @@ const onSuccess = function (data) {
   $('#output-title').show();
   $('#result-table').show();
   $('#output-text').show();
-  
+
 };
 
 const onError = function (response) {
