@@ -1,5 +1,21 @@
 'use strict';
 
+const libraryApi = require('./library-api');
+
+const onDropBook = function (event) {
+  event.preventDefault();
+
+  $('#output-title').hide();
+  $('#result-table').hide();
+  $('#output-text').hide();
+
+  let this_id = $(this).attr('id');
+  console.log(this_id);
+  libraryApi.destroy(this_id);
+  console.log(this_id + ' was destroyed!');
+
+};
+
 const writeTable = function(data){
 
   let books_array;
@@ -17,18 +33,25 @@ const writeTable = function(data){
 
   for(let i = 0; i < max; i++){
 
+    let book_id = JSON.stringify(books_array[i].id) || books_array.id;
+
     let newHTML = [
     '<tr>',
-      '<td id="book-id-number-' + String(i) + '"></td>',
-      '<td id="book-title-' + String(i) + '"></td>',
-      '<td id="book-author-' + String(i) + '"></td>',
-      '<td id="book-author-' + String(i) + '">',
-        '<button id="delete-' + String(i) + '" class="delete-button">Delete</button>',
+      '<td id="book-id-number-' + String(book_id) + '"></td>',
+      '<td id="book-title-' + String(book_id) + '"></td>',
+      '<td id="book-author-' + String(book_id) + '"></td>',
+      '<td id="book-delete-' + String(book_id) + '">',
+        '<form action="#" id="' + book_id + '" class="delete-button">',
+          '<input type="Submit" value="Delete">',
+        '</form>',
       '</td>',
     '</tr>',
     ].join('');
 
       $('#result-table').append(newHTML);
+
+      // Attach event handler
+      $("#" + i).on('click', onDropBook);
 
       if(data.books){
         $('#book-id-number-' + String(i)).text(JSON.stringify(books_array[i].id));
