@@ -2,6 +2,29 @@
 
 const libraryApi = require('./library-api');
 
+const tableReset = function(){
+  let basicHTMLTable = [
+    '<table id=result-table class="table table-bordered">',
+      '<tr>',
+        '<th>ID</th>',
+        '<th>Title</th>',
+        '<th>Author</th>',
+        '<th>Management</th>',
+      '</tr>',
+    '</table>',
+  ].join('');
+  $('#result-table').html(basicHTMLTable);
+  return true;
+};
+
+const fieldReset = function(){
+  $("book-request").val('');
+  $("book-create").val('');
+  $("book-delete").val('');
+  $("book-update").val('');
+  return true;
+};
+
 const onDropBook = function (event) {
   event.preventDefault();
 
@@ -9,10 +32,10 @@ const onDropBook = function (event) {
   $('#result-table').hide();
   $('#output-text').hide();
 
-  let this_id = $('event.target').attr('id');
-  console.log(this_id);
-  libraryApi.destroy(this_id);
-  console.log(this_id + ' was destroyed!');
+  // this_id should be BookId, not index
+  let book_id = $(this).attr('id');
+  console.log("book_id: ", book_id);
+  libraryApi.destroy(book_id);
 
 };
 
@@ -20,20 +43,27 @@ const writeTable = function(data){
 
   let books_array;
   let max;
-  let dataCheck;
-  dataCheck = data.books;
+  let dataCheck = data.books || data.book;
 
-  if(dataCheck !== undefined){
+  if(dataCheck === data.books){
     books_array = data.books;
     max = books_array.length;
   }else{
+    console.log('hi');
     books_array = data.book;
     max = 1;
   }
 
+  console.log(books_array);
+
   for(let i = 0; i < max; i++){
 
-    let book_id = JSON.stringify(books_array[i].id) || books_array.id;
+    let book_id;
+    if(max > 1){
+      book_id = books_array[i].id;
+    }else{
+      book_id = books_array.id;
+    }
 
     let newHTML = [
     '<tr>',
@@ -41,27 +71,27 @@ const writeTable = function(data){
       '<td id="book-title-' + String(book_id) + '"></td>',
       '<td id="book-author-' + String(book_id) + '"></td>',
       '<td id="book-delete-' + String(book_id) + '">',
-        '<form action="#" id="' + book_id + '" class="delete-button">',
+        '<form action="#" id="' + String(book_id) + '" class="delete-button">',
           '<input type="Submit" value="Delete">',
         '</form>',
       '</td>',
     '</tr>',
     ].join('');
 
-      $('#result-table').append(newHTML);
+    $('#result-table').append(newHTML);
 
-      // Attach event handler
-      $("#" + book_id).on('click', onDropBook);
+    // Attach event handler
+    $("#" + book_id).on('click', onDropBook);
 
-      if(data.books){
-        $('#book-id-number-' + String(i)).text(JSON.stringify(books_array[i].id));
-        $('#book-title-' + String(i)).text(JSON.stringify(books_array[i].title));
-        $('#book-author-' + String(i)).text(JSON.stringify(books_array[i].author));
-      }else{
-        $('#book-id-number-' + String(i)).text(books_array.id);
-        $('#book-title-' + String(i)).text(books_array.title);
-        $('#book-author-' + String(i)).text(books_array.author);
-      }
+    if(max > 1){
+      $('#book-id-number-' + String(book_id)).text(books_array[i].id);
+      $('#book-title-' + String(book_id)).text(books_array[i].title);
+      $('#book-author-' + String(book_id)).text(books_array[i].author);
+    }else{
+      $('#book-id-number-' + String(book_id)).text(books_array.id);
+      $('#book-title-' + String(book_id)).text(books_array.title);
+      $('#book-author-' + String(book_id)).text(books_array.author);
+    }
   }
 };
 
@@ -89,7 +119,8 @@ const onError = function (response) {
   console.error(response);
 };
 
-const onDelete = function () {
+const onDelete = function (data) {
+  writeTable(data);
   console.log('Book was successfully deleted.');
 };
 
@@ -104,4 +135,6 @@ module.exports = {
   onDelete,
   onPatch,
   writeTable,
+  tableReset,
+  fieldReset,
 };

@@ -12,23 +12,12 @@ $('#output-text').hide();
 // also, follow a convention for handlers. here, I name my handler
 // beginning with 'on' to denote that it is done when the GET /books
 // button is clicked
-const onGetBooks = function (event) {
 
+const onGetBooks = function (event) {
   event.preventDefault();
 
-  let basicHTMLTable = [
-    '<table id=result-table class="table table-bordered">',
-      '<tr>',
-        '<th>ID</th>',
-        '<th>Title</th>',
-        '<th>Author</th>',
-        '<th>Management</th>',
-      '</tr>',
-    '</table>',
-  ].join('');
-
-  $('#result-table').html(basicHTMLTable);
-
+  ui.tableReset();
+  ui.fieldReset();
   $('#output-title').hide();
   $('#result-table').hide();
   $('#output-text').hide();
@@ -49,6 +38,8 @@ const onGetBooks = function (event) {
 const onCreateBook = function (event) {
   event.preventDefault();
 
+  ui.tableReset();
+  ui.fieldReset();
   $('#output-title').hide();
   $('#result-table').hide();
   $('#output-text').hide();
@@ -61,6 +52,8 @@ const onCreateBook = function (event) {
 const onDeleteBook = function (event) {
   event.preventDefault();
 
+  ui.tableReset();
+  ui.fieldReset();
   $('#output-title').hide();
   $('#result-table').hide();
   $('#output-text').hide();
@@ -74,6 +67,8 @@ const onDeleteBook = function (event) {
 const onUpdateBook = function (event) {
   event.preventDefault();
 
+  ui.tableReset();
+  ui.fieldReset();
   $('#output-title').hide();
   $('#result-table').hide();
   $('#output-text').hide();
