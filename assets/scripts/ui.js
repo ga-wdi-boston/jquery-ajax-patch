@@ -64,7 +64,8 @@ const onDelete = function () {
   console.log('Book was successfully deleted.');
 };
 
-const onPatch = function () {
+const onPatch = function (data) {
+  writeTable(data);
   console.log('Book was successfully updated.');
 };
 
