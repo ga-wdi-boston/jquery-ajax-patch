@@ -43,5 +43,27 @@
         <input type="text" name="book[id]" id="book-delete-id" placeholder="ID of Book">
         <input type="Submit" value="Remove Book">
       </form>
+
+      <h5>Update a Book:</h5>
+      <form action="#" id="book-update">
+        <input type="text" name="book[id]" placeholder="ID">
+        <input type="text" name="book[title]" placeholder="Title">
+        <input type="text" name="book[author]" placeholder="Author">
+        <input type="Submit" value="Update Book">
+      </form>
+      <br>
+
+      <br>
+        <h5 id="output-title">Content:</h5>
+        <table id=result-table class="table table-bordered">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+          </tr>
+        </table>
+        <p id="output-text"></p>
+      <br>
+
     </body>
 </html>
