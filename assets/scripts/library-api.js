@@ -32,9 +32,20 @@ const destroy = function (bookId) {
   });
 };
 
+const update = function(form){
+  let data = getFormFields(form);
+  console.log(data);
+  return $.ajax({
+    url: app.host + '/books/' + data.book.id,
+    method: 'PATCH',
+    data: data,
+  });
+};
+
 module.exports = {
   index,
   show,
   create,
   destroy,
+  update,
 };

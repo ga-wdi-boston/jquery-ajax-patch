@@ -33,8 +33,8 @@
 
       <h5>Add a Book:</h5>
       <form action="#" id="book-create">
-        <input type="text" name="book[title]" placeholder="Title">
-        <input type="text" name="book[author]" placeholder="Author">
+        <input type="text" name="book[title]" placeholder="Title" id="create-title">
+        <input type="text" name="book[author]" placeholder="Author" id="create-author">
         <input type="Submit" value="Add Book">
       </form>
 
@@ -43,5 +43,28 @@
         <input type="text" name="book[id]" id="book-delete-id" placeholder="ID of Book">
         <input type="Submit" value="Remove Book">
       </form>
+
+      <h5>Update a Book:</h5>
+      <form action="#" id="book-update">
+        <input type="text" name="book[id]" placeholder="ID" id="update-id">
+        <input type="text" name="book[title]" placeholder="Title" id="update-title">
+        <input type="text" name="book[author]" placeholder="Author"id="update-author">
+        <input type="Submit" value="Update Book">
+      </form>
+      <br>
+
+      <br>
+        <h5 id="output-title">Content:</h5>
+        <table id=result-table class="table table-bordered">
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Management</th>
+          </tr>
+        </table>
+        <p id="output-text"></p>
+      <br>
+
     </body>
 </html>
