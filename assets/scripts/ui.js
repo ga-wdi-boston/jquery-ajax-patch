@@ -17,20 +17,16 @@ const tableReset = function(){
   return true;
 };
 
-const fieldReset = function(){
-  // $("#book-request").val('');
-  // $("#book-create").val('');
-  // $("#book-delete").val('');
-  // $("#book-update").val('');
-  return true;
-};
+// const fieldReset = function(){
+//   $('#book-request').children(':text').text('');
+//   $('#book-create').children(':text').text('');
+//   $('#book-delete').children(':text').text('');
+//   $('#book-update').children(':text').text('');
+//   return true;
+// };
 
 const onDropBook = function (event) {
   event.preventDefault();
-
-  $('#output-title').hide();
-  $('#result-table').hide();
-  $('#output-text').hide();
 
   // this_id should be BookId, not index
   let book_id = $(this).attr('id');
@@ -40,6 +36,12 @@ const onDropBook = function (event) {
 };
 
 const writeTable = function(data){
+
+  tableReset();
+
+  $('#output-title').hide();
+  $('#result-table').hide();
+  $('#output-text').hide();
 
   let books_array;
   let max;
@@ -54,7 +56,7 @@ const writeTable = function(data){
     max = 1;
   }
 
-  console.log(books_array);
+  console.log("book_array: ", books_array);
 
   for(let i = 0; i < max; i++){
 
@@ -93,6 +95,11 @@ const writeTable = function(data){
       $('#book-author-' + String(book_id)).text(books_array.author);
     }
   }
+
+  $('#output-title').show();
+  $('#result-table').show();
+  $('#output-text').show();
+
 };
 
 
@@ -102,12 +109,18 @@ const writeTable = function(data){
 // for our application, we'd probably call it "displayBooks"
 // or something similar.
 const onSuccess = function (data) {
+
+  $('#output-title').hide();
+  $('#result-table').hide();
+  $('#output-text').hide();
+
     writeTable(data);
   if (data.book) {
     console.log(data.book);
   } else {
     console.table(data.books);
   }
+  // fieldReset();
 
   $('#output-title').show();
   $('#result-table').show();
@@ -117,16 +130,19 @@ const onSuccess = function (data) {
 
 const onError = function (response) {
   console.error(response);
+  // fieldReset();
 };
 
 const onDelete = function () {
   //writeTable(data);
   console.log('Book was successfully deleted.');
+  // fieldReset();
 };
 
 const onPatch = function () {
   //writeTable(data);
   console.log('Book was successfully updated.');
+  // fieldReset();
 };
 
 module.exports = {
@@ -135,6 +151,6 @@ module.exports = {
   onDelete,
   onPatch,
   writeTable,
-  tableReset,
-  fieldReset,
+  // tableReset,
+  // fieldReset,
 };

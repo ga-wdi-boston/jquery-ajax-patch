@@ -16,12 +16,6 @@ $('#output-text').hide();
 const onGetBooks = function (event) {
   event.preventDefault();
 
-  ui.tableReset();
-  ui.fieldReset();
-  $('#output-title').hide();
-  $('#result-table').hide();
-  $('#output-text').hide();
-
   let bookId = $('#book-id').val();
 
   if (bookId.length === 0) {
@@ -38,12 +32,6 @@ const onGetBooks = function (event) {
 const onCreateBook = function (event) {
   event.preventDefault();
 
-  ui.tableReset();
-  ui.fieldReset();
-  $('#output-title').hide();
-  $('#result-table').hide();
-  $('#output-text').hide();
-
   libraryApi.create(event.target)
     .done(ui.onSuccess)
     .fail(ui.onError);
@@ -51,12 +39,6 @@ const onCreateBook = function (event) {
 
 const onDeleteBook = function (event) {
   event.preventDefault();
-
-  ui.tableReset();
-  ui.fieldReset();
-  $('#output-title').hide();
-  $('#result-table').hide();
-  $('#output-text').hide();
 
   let bookId = $('#book-delete-id').val();
   libraryApi.destroy(bookId)
@@ -66,12 +48,6 @@ const onDeleteBook = function (event) {
 
 const onUpdateBook = function (event) {
   event.preventDefault();
-
-  ui.tableReset();
-  ui.fieldReset();
-  $('#output-title').hide();
-  $('#result-table').hide();
-  $('#output-text').hide();
 
   libraryApi.update(event.target)
     .done(ui.onPatch)
