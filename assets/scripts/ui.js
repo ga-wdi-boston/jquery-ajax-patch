@@ -1,7 +1,9 @@
 'use strict';
 
+// import
 const libraryApi = require('./library-api');
 
+// lets me redraw the table
 const tableReset = function(){
   let basicHTMLTable = [
     '<table id=result-table class="table table-bordered">',
@@ -17,32 +19,41 @@ const tableReset = function(){
   return true;
 };
 
-// const fieldReset = function(){
-//   $('#book-request').children(':text').text('');
-//   $('#book-create').children(':text').text('');
-//   $('#book-delete').children(':text').text('');
-//   $('#book-update').children(':text').text('');
-//   return true;
-// };
+// resets the fields (i don't think this is quite working yet)
+const fieldReset = function(){
+  $('#book-id').text('');
+  $('#create-title').text('');
+  $('#create-author').text('');
+  $('#book-delete-id').text('');
+  $('#update-id').text('');
+  $('#update-title').text('');
+  $('#update-author').text('');
+  return true;
+};
 
+// the way to remove books from the server
 const onDropBook = function (event) {
   event.preventDefault();
 
-  // this_id should be BookId, not index
+  // this_id is the BookId, not the index in the db
   let book_id = $(this).attr('id');
   console.log("book_id: ", book_id);
   libraryApi.destroy(book_id);
 
 };
 
+// writes out the table with a loop
 const writeTable = function(data){
 
+  // erases the old table, except for header row
   tableReset();
 
+  // hides the table for now
   $('#output-title').hide();
   $('#result-table').hide();
   $('#output-text').hide();
 
+  // gets size of the table
   let books_array;
   let max;
   let dataCheck = data.books || data.book;
@@ -56,8 +67,9 @@ const writeTable = function(data){
     max = 1;
   }
 
-  console.log("book_array: ", books_array);
+  // console.log("book_array: ", books_array);
 
+  // the loop to build the table
   for(let i = 0; i < max; i++){
 
     let book_id;
@@ -96,31 +108,29 @@ const writeTable = function(data){
     }
   }
 
+  // show table at the end
   $('#output-title').show();
   $('#result-table').show();
   $('#output-text').show();
 
 };
 
-
-// don't rely on console displays for real apps! we would normally manipulate
-// the content on the page with a success function.
-//
-// for our application, we'd probably call it "displayBooks"
-// or something similar.
+// show results on success
 const onSuccess = function (data) {
 
   $('#output-title').hide();
   $('#result-table').hide();
   $('#output-text').hide();
 
-    writeTable(data);
+  writeTable(data);
+
   if (data.book) {
     console.log(data.book);
   } else {
     console.table(data.books);
   }
-  // fieldReset();
+
+  fieldReset();
 
   $('#output-title').show();
   $('#result-table').show();
@@ -130,19 +140,19 @@ const onSuccess = function (data) {
 
 const onError = function (response) {
   console.error(response);
-  // fieldReset();
+  fieldReset();
 };
 
 const onDelete = function () {
   //writeTable(data);
   console.log('Book was successfully deleted.');
-  // fieldReset();
+  fieldReset();
 };
 
 const onPatch = function () {
   //writeTable(data);
   console.log('Book was successfully updated.');
-  // fieldReset();
+  fieldReset();
 };
 
 module.exports = {
@@ -151,6 +161,6 @@ module.exports = {
   onDelete,
   onPatch,
   writeTable,
-  // tableReset,
-  // fieldReset,
+  tableReset,
+  fieldReset,
 };
